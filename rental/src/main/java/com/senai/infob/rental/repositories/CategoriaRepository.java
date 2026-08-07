@@ -1,5 +1,9 @@
 package com.senai.infob.rental.repositories;
 
-public class CategoriaRepository {
-    
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.senai.infob.rental.models.Categoria;
+
+public interface CategoriaRepository extends JpaRepository<Categoria, Integer> {
+
 }
