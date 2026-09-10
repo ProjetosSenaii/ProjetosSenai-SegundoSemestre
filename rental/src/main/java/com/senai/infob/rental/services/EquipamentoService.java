@@ -23,8 +23,7 @@ public class EquipamentoService {
     }
 
     public Equipamento buscarPorId(Long id) {
-        return equipamentoRepository.findById(id)
-                .orElseThrow(() -> new EquipamentoNotFoundException(id));
+        return equipamentoRepository.findById(id);
     }
 
     public Equipamento salvar(Equipamento equipamento) {

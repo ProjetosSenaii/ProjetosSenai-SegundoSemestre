@@ -22,8 +22,8 @@ import org.springframework.web.multipart.support.MissingServletRequestPartExcept
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(ProdutoNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleNotFound(ProdutoNotFoundException ex) {
+    @ExceptionHandler(EquipamentoNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleNotFound(EquipamentoNotFoundException ex) {
         return construir(HttpStatus.NOT_FOUND, ex.getMessage());
     }
 
@@ -32,8 +32,8 @@ public class GlobalExceptionHandler {
         return construir(HttpStatus.NOT_FOUND, ex.getMessage());
     }
 
-    @ExceptionHandler(ImagemNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleNotFound(ImagemNotFoundException ex) {
+    @ExceptionHandler(MovimentacaoNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleNotFound(MovimentacaoNotFoundException ex) {
         return construir(HttpStatus.NOT_FOUND, ex.getMessage());
     }
 

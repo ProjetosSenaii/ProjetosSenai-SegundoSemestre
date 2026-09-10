@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.senai.infob.rental.exceptions.MovimentacaoNotFoundException;
 import com.senai.infob.rental.models.Movimentacao;
 import com.senai.infob.rental.repositories.MovimentacaoRepository;
 
@@ -21,8 +22,7 @@ public class MovimentacaoService {
     }
 
     public Movimentacao buscarPorId(Long id) {
-        return movimentacaoRepository.findById(id)
-                .orElseThrow(() -> new MovimentacaoNotFoundException(id));
+        return movimentacaoRepository.findById(id).orElseThrow(() -> new MovimentacaoNotFoundException(idMovimentacao));
     }
 
     public Movimentacao salvar(Movimentacao movimentacao) {

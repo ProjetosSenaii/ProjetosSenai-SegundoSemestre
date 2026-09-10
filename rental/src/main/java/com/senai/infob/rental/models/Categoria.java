@@ -17,7 +17,7 @@ public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_categoria")
-    private Integer idCategoria;
+    private Integer id;
     
     @Column(name="nome")
     private String nome;
@@ -31,19 +31,19 @@ public class Categoria {
     public Categoria() {
     }
 
-    public Categoria(Integer idCategoria, String nome, String descricao, List<Equipamento> equipamentos) {
-        this.idCategoria = idCategoria;
+    public Categoria(Integer id, String nome, String descricao, List<Equipamento> equipamentos) {
+        this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.equipamentos = equipamentos;
     }
 
-    public Integer getIdCategoria() {
-        return idCategoria;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdCategoria(Integer idCategoria) {
-        this.idCategoria = idCategoria;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNome() {
