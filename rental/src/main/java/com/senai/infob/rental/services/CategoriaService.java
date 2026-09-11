@@ -24,7 +24,11 @@ public class CategoriaService {
     }
 
     public Categoria buscarPorId(Long id) {
-        return categoriaRepository.findById(id).orElseThrow(() -> new Exception("Não encontrado"));
+        Categoria categoria = categoriaRepository.findById(id);
+        if (categoria == null) {
+            throw new CategoriaNotFoundException(id);
+        }
+        return categoria;
     }
 
     public Categoria salvar(Categoria categoria) {

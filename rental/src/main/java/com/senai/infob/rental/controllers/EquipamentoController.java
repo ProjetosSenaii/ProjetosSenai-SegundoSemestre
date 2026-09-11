@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.senai.infob.rental.exceptions.EquipamentoNotFoundException;
 import com.senai.infob.rental.models.Equipamento;
 import com.senai.infob.rental.services.EquipamentoService;
 

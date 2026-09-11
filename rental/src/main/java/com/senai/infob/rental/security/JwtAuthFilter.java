@@ -17,11 +17,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-/**
- * Filtro que roda uma vez por requisição, antes do filtro padrão de autenticação
- * do Spring Security (ver {@link SecurityConfig}). Lê o header "Authorization: Bearer &lt;token&gt;",
- * valida o JWT e, se for válido, autentica o usuário no contexto de segurança da requisição.
- */
 @Component 
 public class JwtAuthFilter extends OncePerRequestFilter {
 

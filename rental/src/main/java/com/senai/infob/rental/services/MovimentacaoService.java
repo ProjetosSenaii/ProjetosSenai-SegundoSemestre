@@ -22,7 +22,11 @@ public class MovimentacaoService {
     }
 
     public Movimentacao buscarPorId(Long id) {
-        return movimentacaoRepository.findById(id).orElseThrow(() -> new MovimentacaoNotFoundException(idMovimentacao));
+        Movimentacao movimentacao = movimentacaoRepository.findById(id);
+        if (movimentacao == null) {
+            throw new MovimentacaoNotFoundException(id);
+        }
+        return movimentacao;
     }
 
     public Movimentacao salvar(Movimentacao movimentacao) {

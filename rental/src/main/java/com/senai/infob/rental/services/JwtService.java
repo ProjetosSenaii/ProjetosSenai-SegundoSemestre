@@ -11,23 +11,19 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
-/**
- * Gera e valida os tokens JWT usados para autenticação: assina o token com uma
- * chave secreta (HMAC), define a validade de 1 hora e permite extrair o username
- * de um token já emitido. Usado no login ({@link br.com.senai.produtosapi.controller.AuthController})
- * e na validação de cada requisição ({@link br.com.senai.produtosapi.security.JwtAuthFilter}).
- */
+
 @Service
 public class JwtService {
 
-    // A chave vem de application.properties (jwt.secret), que por sua vez lê a
-    // variável de ambiente JWT_SECRET. Em produção, JWT_SECRET deve ser configurada
-    // externamente (nunca versionada); o valor default existe só para uso local/didático.
+    @Value("${jwt.secret}")
     private final String secret;
-    private static final long VALIDADE_MS = 1000 * 60 * 60; // 1 hora
 
-    public JwtService(@Value("${jwt.secret}") String secret) {
+    @Value("${jwt.expiration}")
+    private final long VALIDADE_MS;
+
+    public JwtService(@Value("${jwt.secret}") String secret, @Value("${jwt.expiration}") long validadeMs) {
         this.secret = secret;
+        this.VALIDADE_MS = validadeMs;
     }
 
     private SecretKey getChave() {
