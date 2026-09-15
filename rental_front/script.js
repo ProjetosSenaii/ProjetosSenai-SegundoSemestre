@@ -1,91 +1,92 @@
 function mostrarCadastro() {
     document.getElementById("loginArea").classList.add("hidden");
     document.getElementById("cadastroArea").classList.remove("hidden");
-
     document.getElementById("mensagem").textContent = "";
 }
-
 
 function mostrarLogin() {
     document.getElementById("cadastroArea").classList.add("hidden");
     document.getElementById("loginArea").classList.remove("hidden");
-
     document.getElementById("mensagem").textContent = "";
 }
 
-
-function cadastrar() {
-
-    const nome = document.getElementById("nome").value;
-    const email = document.getElementById("email").value;
+async function cadastrar() {
+    const nome = document.getElementById("nome").value.trim();
+    const email = document.getElementById("email").value.trim();
     const senha = document.getElementById("senha").value;
 
-    if (nome === "" || email === "" || senha === "") {
-
+    if (!nome || !email || !senha) {
         mostrarMensagem("Preencha todos os campos.", "red");
-
         return;
     }
 
-    const usuario = {
-        nome: nome,
-        email: email,
-        senha: senha
-    };
+    try {
+        const resposta = await fetch("http://localhost:8080/api/v1/auth/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                username: nome,
+                email: email,
+                password: senha
+            })
+        });
 
-    localStorage.setItem("usuario", JSON.stringify(usuario));
+        const dados = await resposta.json();
 
-    mostrarMensagem(
-        "Cadastro realizado com sucesso!",
-        "green"
-    );
+        if (!resposta.ok) {
+            throw new Error(dados.message || "Não foi possível cadastrar.");
+        }
 
-    setTimeout(() => {
-        mostrarLogin();
-    }, 1500);
+        localStorage.setItem("token", dados.token || "");
+        mostrarMensagem("Cadastro realizado com sucesso!", "green");
+
+        setTimeout(() => {
+            mostrarLogin();
+        }, 1500);
+    } catch (erro) {
+        mostrarMensagem(erro.message || "Erro ao cadastrar.", "red");
+    }
 }
 
-
-function fazerLogin() {
-
-    const email = document.getElementById("loginEmail").value;
+async function fazerLogin() {
+    const email = document.getElementById("loginEmail").value.trim();
     const senha = document.getElementById("loginSenha").value;
 
-    const usuarioSalvo = localStorage.getItem("usuario");
-
-    if (!usuarioSalvo) {
-
-        mostrarMensagem(
-            "Nenhum usuário cadastrado.",
-            "red"
-        );
-
+    if (!email || !senha) {
+        mostrarMensagem("Informe e-mail e senha.", "red");
         return;
     }
 
-    const usuario = JSON.parse(usuarioSalvo);
+    try {
+        const resposta = await fetch("http://localhost:8080/api/v1/auth/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                username: "",
+                email: email,
+                password: senha
+            })
+        });
 
-    if (email === usuario.email && senha === usuario.senha) {
+        const dados = await resposta.json();
 
-        mostrarMensagem(
-            "Login realizado com sucesso! 🎉",
-            "green"
-        );
+        if (!resposta.ok) {
+            throw new Error(dados.message || "E-mail ou senha incorretos.");
+        }
 
-    } else {
-
-        mostrarMensagem(
-            "E-mail ou senha incorretos.",
-            "red"
-        );
+        localStorage.setItem("token", dados.token || "");
+        mostrarMensagem("Login realizado com sucesso! 🎉", "green");
+    } catch (erro) {
+        mostrarMensagem(erro.message || "E-mail ou senha incorretos.", "red");
     }
 }
 
-
 function mostrarMensagem(texto, cor) {
-
     const mensagem = document.getElementById("mensagem");
-
     mensagem.textContent = texto;
     mensagem.style.color = cor;
 }

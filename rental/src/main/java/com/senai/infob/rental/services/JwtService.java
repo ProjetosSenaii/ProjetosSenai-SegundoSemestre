@@ -1,5 +1,6 @@
 package com.senai.infob.rental.services;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 import javax.crypto.SecretKey;
@@ -8,32 +9,28 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-
 
 @Service
 public class JwtService {
 
-    @Value("${jwt.secret}")
     private final String secret;
+    private final long validadeMs;
 
-    @Value("${jwt.expiration}")
-    private final long VALIDADE_MS;
-
-    public JwtService(@Value("${jwt.secret}") String secret, @Value("${jwt.expiration}") long validadeMs) {
+    public JwtService(
+            @Value("${jwt.secret}") String secret,
+            @Value("${jwt.expiration}") long validadeMs) {
         this.secret = secret;
-        this.VALIDADE_MS = validadeMs;
+        this.validadeMs = validadeMs;
     }
 
     private SecretKey getChave() {
-        byte[] bytes = Decoders.BASE64.decode(secret);
-        return Keys.hmacShaKeyFor(bytes);
+        return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
 
     public String gerarToken(String username) {
         Date agora = new Date();
-        Date expiracao = new Date(agora.getTime() + VALIDADE_MS);
+        Date expiracao = new Date(agora.getTime() + validadeMs);
 
         return Jwts.builder()
                 .subject(username)

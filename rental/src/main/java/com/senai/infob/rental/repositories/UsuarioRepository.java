@@ -6,11 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.senai.infob.rental.models.Usuario;
 
-public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
-    Usuario findById(Long id);
-
-    void deleteById(Long id);
-
+public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     Optional<Usuario> findByEmail(String email);
-    
 }

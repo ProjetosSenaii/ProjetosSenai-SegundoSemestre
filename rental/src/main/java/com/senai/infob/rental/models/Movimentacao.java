@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
 public class Movimentacao {
     @Id
     @Column(name="id_movimentacao")
-    private Integer id;
+    private Long id;
 
     @Column(name="data_movimentacao")
     private Timestamp dataMovimentacao;
@@ -32,7 +32,7 @@ public class Movimentacao {
     public Movimentacao() {
     }
 
-    public Movimentacao(Integer id, Timestamp dataMovimentacao, String tipoMovimentacao, Usuario usuario, Integer quantidade) {
+    public Movimentacao(Long id, Timestamp dataMovimentacao, String tipoMovimentacao, Usuario usuario, Integer quantidade) {
         this.id = id;
         this.dataMovimentacao = dataMovimentacao;
         this.tipoMovimentacao = tipoMovimentacao;
@@ -40,11 +40,11 @@ public class Movimentacao {
         this.quantidade = quantidade;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

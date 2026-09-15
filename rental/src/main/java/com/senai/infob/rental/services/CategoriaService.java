@@ -24,11 +24,8 @@ public class CategoriaService {
     }
 
     public Categoria buscarPorId(Long id) {
-        Categoria categoria = categoriaRepository.findById(id);
-        if (categoria == null) {
-            throw new CategoriaNotFoundException(id);
-        }
-        return categoria;
+        return categoriaRepository.findById(id)
+                .orElseThrow(() -> new CategoriaNotFoundException(id));
     }
 
     public Categoria salvar(Categoria categoria) {

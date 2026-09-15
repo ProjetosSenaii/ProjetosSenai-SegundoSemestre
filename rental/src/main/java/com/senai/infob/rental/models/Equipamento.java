@@ -7,7 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,7 +17,7 @@ public class Equipamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_equipamento")
-    private Integer idEquipamento;
+    private Long idEquipamento;
     
     @Column(name="marca")
     private String marca;
@@ -48,7 +49,8 @@ public class Equipamento {
     @Column(name="dimensoes", nullable = true)
     private String dimensoes;
 
-    @OneToOne(mappedBy = "equipamento")
+    @ManyToOne
+    @JoinColumn(name = "id_categoria", nullable = false)
     private Categoria categoria;
 
     @Column(name="quantidade_minima")
@@ -57,7 +59,7 @@ public class Equipamento {
     public Equipamento() {
     }
 
-    public Equipamento(Integer idEquipamento, String marca, String modelo,
+    public Equipamento(Long idEquipamento, String marca, String modelo,
          String descricao, Integer estoque,
          Categoria categoria, Integer potencia, String material,
           String cor, Double peso, String dimensoes, Integer quantidadeMinima,
@@ -77,11 +79,11 @@ public class Equipamento {
         this.preco = preco;
     }
 
-    public Integer getIdEquipamento() {
+    public Long getIdEquipamento() {
         return idEquipamento;
     }
 
-    public void setIdEquipamento(Integer idEquipamento) {
+    public void setIdEquipamento(Long idEquipamento) {
         this.idEquipamento = idEquipamento;
     }
 

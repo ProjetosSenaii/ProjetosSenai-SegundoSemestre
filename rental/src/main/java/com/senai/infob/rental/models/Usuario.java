@@ -11,6 +11,8 @@ import com.senai.infob.rental.enums.Role;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -34,8 +36,9 @@ public class Usuario implements UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "role")
-    private Role role;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private Role role = Role.USER;
 
     public Usuario() {
     }

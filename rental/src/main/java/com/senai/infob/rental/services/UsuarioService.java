@@ -21,7 +21,8 @@ public class UsuarioService {
     }
 
     public Usuario buscarPorId(Long id) {
-        return usuarioRepository.findById(id);
+        return usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado: " + id));
     }
 
     public Usuario salvar(Usuario usuario) {
