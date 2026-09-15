@@ -14,11 +14,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
 
-/**
- * Ponto único que intercepta as exceções lançadas pelos controllers e services
- * e as converte em respostas HTTP padronizadas (status + {@link ErrorResponse}),
- * em vez de deixar o Spring devolver uma stack trace crua para o cliente.
- */
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -37,11 +32,6 @@ public class GlobalExceptionHandler {
         return construir(HttpStatus.NOT_FOUND, ex.getMessage());
     }
 
-    @ExceptionHandler(ArquivoInvalidoException.class)
-    public ResponseEntity<ErrorResponse> handleArquivoInvalido(ArquivoInvalidoException ex) {
-        return construir(HttpStatus.BAD_REQUEST, ex.getMessage());
-    }
-
     @ExceptionHandler(CategoriaInvalidaException.class)
     public ResponseEntity<ErrorResponse> handleCategoriaInvalida(CategoriaInvalidaException ex) {
         return construir(HttpStatus.BAD_REQUEST, ex.getMessage());
@@ -50,11 +40,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({ MissingServletRequestPartException.class, MultipartException.class })
     public ResponseEntity<ErrorResponse> handleArquivoAusente(Exception ex) {
         return construir(HttpStatus.BAD_REQUEST, "Arquivo de imagem não enviado ou requisição multipart inválida.");
-    }
-
-    @ExceptionHandler(ArmazenamentoException.class)
-    public ResponseEntity<ErrorResponse> handleArmazenamento(ArmazenamentoException ex) {
-        return construir(HttpStatus.INTERNAL_SERVER_ERROR, "Erro ao armazenar o arquivo de imagem.");
     }
 
     // Cobre tanto usuário inexistente quanto senha incorreta: por segurança, o
