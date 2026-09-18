@@ -44,7 +44,7 @@ public class EquipamentoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(salva);
     }
 
-    @Operation(summary = "Listar todas as equipamentos")
+    @Operation(summary = "Listar todas os equipamentos")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Lista de equipamentos retornada com sucesso")
     })
@@ -65,9 +65,9 @@ public class EquipamentoController {
 
     @Operation(summary = "Atualizar uma equipamento existente")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Equipamento atualizada com sucesso"),
+            @ApiResponse(responseCode = "200", description = "Equipamento atualizado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Dados inválidos"),
-            @ApiResponse(responseCode = "404", description = "Equipamento não encontrada")
+            @ApiResponse(responseCode = "404", description = "Equipamento não encontrado")
     })
     @PutMapping ("/{id}")
     public ResponseEntity<Equipamento> atualizar(@PathVariable Long id, @Valid @RequestBody Equipamento equipamento) {
@@ -76,8 +76,8 @@ public class EquipamentoController {
 
     @Operation(summary = "Remover uma equipamento")
     @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "Equipamento removida com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Equipamento não encontrada")
+            @ApiResponse(responseCode = "204", description = "Equipamento removido com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Equipamento não encontrado")
     })
     @DeleteMapping ("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {

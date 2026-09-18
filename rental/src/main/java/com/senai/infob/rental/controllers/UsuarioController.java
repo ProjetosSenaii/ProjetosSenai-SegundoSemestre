@@ -33,9 +33,9 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
-    @Operation (summary = "Cadastrar uma nova usuario")
+    @Operation (summary = "Cadastrar um novo usuario")
     @ApiResponses ({
-            @ApiResponse (responseCode = "201", description = "Usuario cadastrada com sucesso"),
+            @ApiResponse (responseCode = "201", description = "Usuario cadastrado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Dados inválidos")
     })
     @PostMapping 
@@ -44,7 +44,7 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(salva);
     }
 
-    @Operation(summary = "Listar todas as usuarios")
+    @Operation(summary = "Listar todos os usuarios")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Lista de usuarios retornada com sucesso")
     })
@@ -63,22 +63,23 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.buscarPorId(id));
     }
 
-    @Operation (summary = "Atualizar uma usuario existente")
+    @Operation (summary = "Atualizar um usuario existente")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Usuario atualizada com sucesso"),
+            @ApiResponse(responseCode = "200", description = "Usuario atualizado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Dados inválidos"),
-            @ApiResponse(responseCode = "404", description = "Usuario não encontrada")
+            @ApiResponse(responseCode = "404", description = "Usuario não encontrado")
     })
     @PutMapping ("/{id}")
     public ResponseEntity<Usuario> atualizar(@PathVariable Long id, @Valid @RequestBody Usuario usuario) {
         return ResponseEntity.ok(usuarioService.atualizar(id, usuario));
     }
 
-    @Operation(summary = "Remover uma usuario")
+    @Operation(summary = "Remover um usuario")
     @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "Usuario removida com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Usuario não encontrada")
+            @ApiResponse(responseCode = "204", description = "Usuario removido com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Usuario não encontrado")
     })
+    
     @DeleteMapping ("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
         usuarioService.deletar(id);
